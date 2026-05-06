@@ -45,3 +45,22 @@ Resources:
       Code:
         S3Bucket: scansource-technical-assessment-bucket #My S3 Bucket goes here
         S3Key: lambda2.zip
+
+  ApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: scansource-api
+
+  WeatherResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref ApiGateway
+      ParentId: !GetAtt ApiGateway.RootResourceId
+      PathPart: weather
+
+  CryptoResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref ApiGateway
+      ParentId: !GetAtt ApiGateway.RootResourceId
+      PathPart: crypto
