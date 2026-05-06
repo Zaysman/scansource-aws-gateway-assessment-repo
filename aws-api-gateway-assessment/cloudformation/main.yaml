@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Basic Lambda setup
+
+Resources:
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: lambda-execution-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: lambda-logs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:*
+                Resource: "*"
+
+  WeatherLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: weather-lambda
+      Runtime: nodejs18.x
+      Handler: index.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        S3Bucket: YOUR_BUCKET #My S3 Bucket goes here
+        S3Key: lambda1.zip
+
+  CryptoLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: crypto-lambda
+      Runtime: python3.11
+      Handler: lambda_function.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        S3Bucket: YOUR_BUCKET #My S3 Bucket goes here
+        S3Key: lambda2.zip
