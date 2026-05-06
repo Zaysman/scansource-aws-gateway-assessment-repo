@@ -33,7 +33,7 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       Code:
         S3Bucket: YOUR_BUCKET #My S3 Bucket goes here
-        S3Key: lambda1.zip
+        S3Key: lambda1.zip 
 
   CryptoLambda:
     Type: AWS::Lambda::Function
