@@ -1,4 +1,6 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const handler = async (event: any) => {
     try {
@@ -8,7 +10,7 @@ export const handler = async (event: any) => {
         if(!city) {
             return {
                 statusCode: 400,
-                body: JSON. stringify({ error: "City is required"}),
+                body: JSON.stringify({ error: "City is required"}),
             };
         }
 
