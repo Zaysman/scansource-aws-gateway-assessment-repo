@@ -16,24 +16,32 @@ export const handler = async (event: any) => {
 
         const apiKey = process.env.OPENWEATHER_API_KEY;
 
+        if(!apiKey) {
+            throw new Error("API key not configured");
+        }
+
         const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
         );
+
+        const tempKelvin = response.data.main.temp;
+        const tempFahrenheit = ((tempKelvin - 273.15) * 9 / 5) +32;
 
         return {
             statusCode: 200,
             body: JSON.stringify({
                 city: response.data.name,
-                temp: response.data.main.temp,
+                tempK: tempKelvin,
+                tempF: tempFahrenheit.toFixed(2),
                 description: response.data.weather[0].description,
             }),
         };
     } catch (error: any) {
-        console.error(error);
+        console.error("Error fetching weather:", error?.response?.data || error.message);
 
         return {
-            statusCode: 500,
-            body: JSON.stringify({error: "Internal Server Error"}),
+            statusCode: error?.response?.status || 500,
+            body: JSON.stringify({error: "Failed to fetch weather data"}),
         };
     }
 
