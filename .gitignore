@@ -7,11 +7,27 @@ dist/
 # TypeScript
 *.tsbuildinfo
 
+#TypeScript build output
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+# Python dependencies installed for Lambda packaging
+aws-api-gateway-assessment/lambdas/lambda2/requests/
+aws-api-gateway-assessment/lambdas/lambda2/requests-2.33.1.dist-info
+aws-api-gateway-assessment/lambdas/lambda2/urllib3/
+aws-api-gateway-assessment/lambdas/lambda2/certifi/
+aws-api-gateway-assessment/lambdas/lambda2/idna/
+aws-api-gateway-assessment/lambdas/lambda2/charset_normalizer/
+aws-api-gateway-assessment/lambdas/lambda2/*.dist-info/
+aws-api-gateway-assessment/lambdas/lambda2/bin/
+
 
 # Environment variables
 .env
