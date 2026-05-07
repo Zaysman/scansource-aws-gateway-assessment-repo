@@ -118,7 +118,7 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
 
-  ApiDeployment:
+  ApiDeploymentV2:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
       - WeatherMethod
