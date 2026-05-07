@@ -53,14 +53,14 @@ Resources:
 
   #API Authorizer goes in our ApiGateway Resource
   ApiAuthorizer:
-  Type: AWS::ApiGateway::Authorizer
-  Properties:
-    Name: CognitoAuthorizer
-    Type: COGNITO_USER_POOLS
-    IdentitySource: method.request.header.Authorization
-    RestApiId: !Ref ApiGateway
-    ProviderARNs: 
-      - arn:aws:cognito-idp:us-east-1:730335400564:userpool/us-east-1_c8RnSPIJS #Cognito app ARN here
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      Name: CognitoAuthorizer
+      Type: COGNITO_USER_POOLS
+      IdentitySource: method.request.header.Authorization
+      RestApiId: !Ref ApiGateway
+      ProviderARNs: 
+        - arn:aws:cognito-idp:us-east-1:730335400564:userpool/us-east-1_c8RnSPIJS #Cognito app ARN here
 
   WeatherResource:
     Type: AWS::ApiGateway::Resource
