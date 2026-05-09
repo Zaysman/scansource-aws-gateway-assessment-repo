@@ -33,7 +33,7 @@ Step 3: Update S3Bucket values in cloudformation/main.yaml
 Step 4: Deploy stack
 -Use the following command to deploy the stack via cloudFormation using the following command.
 --Command: aws cloudformation deploy --template-file cloudformation/main.yaml --stack-name scansource-assessment --capabilities CAPABILITY_NAMED_IAM
--The output will give you the APIURL you'll need to test the endpoints
+-The output will give you the APIURL and UserPoolClientId you'll need to test the endpoints
 --Example ApiURL: https://hw2969wxpg.execute-api.us-east-1.amazonaws.com/prod
 
 
@@ -45,7 +45,7 @@ Step 6: Authentical using AWS CLI
 -Use the following command to authenticate the user. Save the IdToken so you can call the secured endpoints.
 --Command: “aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id <Cognito_UserPool_ClientId> --auth-parameters USERNAME=testuser2@example.com,PASSWORD=Test123!”
 -You can save the idToken with the following commands in powershell: 
---$response = aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id YOUR_NEW_CLIENT_ID --auth-parameters USERNAME=newtestuser@example.com,PASSWORD=Test123! | ConvertFrom-Json
+--$response = aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id <Cognito_UserPool_ClientId> --auth-parameters USERNAME=newtestuser@example.com,PASSWORD=Test123! | ConvertFrom-Json
 
 -Save IdToken:
 --$token = $response.AuthenticationResult.IdToken
