@@ -38,8 +38,8 @@ Step 4: Deploy stack
 
 
 Step 5: Create a Cognito User
--Create a Cognito User for you to log into the Cognito app.
-  -Command: "aws cognito-idp sign-up --client-id <Cognito_UserPool_ClientId> --username testuser2@example.com --password Test123! --user-attributes Name=email,Value=testuser2@example.com"
+- Create a Cognito User for you to log into the Cognito app.
+  - Command: "aws cognito-idp sign-up --client-id <Cognito_UserPool_ClientId> --username testuser2@example.com --password Test123! --user-attributes Name=email,Value=testuser2@example.com"
 
 Step 6: Authentical using AWS CLI
 - Use the following command to authenticate the user. Save the IdToken so you can call the secured endpoints.
@@ -55,16 +55,15 @@ Step 7: Use the returned IdToken to call secured endpoints
   - Weather endpoint: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "<apiurl>/weather?city=<city_name>"
 ---Example: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "https://hw2969wxpg.execute-api.us-east-1.amazonaws.com/prod/weather?city=Atlanta"
     - Example Response:
-city     tempK tempF description
-----     ----- ----- -----------
-Atlanta 293.99 69.51 overcast clouds
+      - city     tempK tempF description
+      - Atlanta 293.99 69.51 overcast clouds
 
 - Crypto endpoint: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "<apiurl>/crypto?symbol=<crypto_coin_name>"
     - Example: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "https://hw2969wxpg.execute-api.us-east-1.amazonaws.com/prod/crypto?symbol=bitcoin"
     - Example Response:
-symbol  price_usd
-------  ---------
-bitcoin     81023
+      - symbol  price_usd
+
+      - bitcoin     81023
 
 # External Endpoints
 -WeatherLambda:
