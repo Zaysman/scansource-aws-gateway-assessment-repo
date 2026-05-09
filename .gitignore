@@ -35,6 +35,3 @@ aws-api-gateway-assessment/lambdas/lambda2/bin/
 # OS junk
 .DS_Store
 Thumbs.db
-
-# Zip artifacts
-*.zip
