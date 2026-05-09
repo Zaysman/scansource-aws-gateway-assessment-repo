@@ -25,7 +25,7 @@ Step 1: Create S3 Bucket
 - Create an S3 bucket.
 
 Step 2: Upload zip files
-- Upload lambda1.zip and lambda2.zip to the S3 bucket that you created.
+- Upload lambda1.zip and lambda2.zip to the S3 bucket that you created. Both files needed are located in the assets/ directory. Be sure to upload lambda1.zip and lambda2.zip to the root of your S3 bucket (don't upload asset/lambda1 for example).
 
 Step 3: Update S3Bucket values in cloudformation/main.yaml
 - Inside main.yaml, look for the resources "WeatherLambda" & "CryptoLambda". Underneath each, there is a property called "S3Bucket". Update the value of the S3Bucket property for both lambdas to the name of the S3 bucket you created.
