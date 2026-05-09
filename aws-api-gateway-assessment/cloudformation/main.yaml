@@ -3,6 +3,41 @@ Description: Basic Lambda setup
 
 Resources:
 
+  
+
+  #Add Cognito Userpool
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: scansource-user-pool
+
+      UsernameAttributes:
+        - email
+
+      AutoVerifiedAttributes:
+        - email
+
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+
+  #Cognito App Client
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: scansource-app-client
+      UserPoolId: !Ref CognitoUserPool
+
+      GenerateSecret: false
+
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH  
+
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -32,7 +67,7 @@ Resources:
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRole.Arn
       Code:
-        S3Bucket: scansource-technical-assessment-bucket #My S3 Bucket goes here
+        S3Bucket: scansource-technical-assessment-bucket #S3 Bucket goes here
         S3Key: lambda1.zip 
 
   CryptoLambda:
@@ -43,7 +78,7 @@ Resources:
       Handler: lambda_function.lambda_handler
       Role: !GetAtt LambdaExecutionRole.Arn
       Code:
-        S3Bucket: scansource-technical-assessment-bucket #My S3 Bucket goes here
+        S3Bucket: scansource-technical-assessment-bucket #S3 Bucket goes here
         S3Key: lambda2.zip
 
   ApiGateway:
@@ -59,8 +94,8 @@ Resources:
       Type: COGNITO_USER_POOLS
       IdentitySource: method.request.header.Authorization
       RestApiId: !Ref ApiGateway
-      ProviderARNs: 
-        - arn:aws:cognito-idp:us-east-1:730335400564:userpool/us-east-1_c8RnSPIJS #Cognito app ARN here
+      ProviderARNs:
+        - !GetAtt CognitoUserPool.Arn #Cognito app ARN here
 
   WeatherResource:
     Type: AWS::ApiGateway::Resource
@@ -118,7 +153,7 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
 
-  ApiDeploymentV2:
+  ApiDeploymentV3:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
       - WeatherMethod
@@ -126,4 +161,17 @@ Resources:
     Properties:
       RestApiId: !Ref ApiGateway
       StageName: prod
+
+
+Outputs:
+
+  ApiUrl:
+    Description: API Gateway URL
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/prod"
+
+  UserPoolId:
+    Value: !Ref CognitoUserPool
+
+  UserPoolClientId:
+    Value: !Ref CognitoUserPoolClient
 
