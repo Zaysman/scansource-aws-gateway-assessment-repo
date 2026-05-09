@@ -30,24 +30,24 @@ Step 2: Obtain Open Weather API Key
 
   - OPENWEATHER_API_KEY=YOUR_API_KEY_HERE
 
-Step 2: Upload zip files
+Step 3: Upload zip files
 - Upload lambda1.zip and lambda2.zip to the S3 bucket that you created. Both files needed are located in the assets/ directory. Be sure to upload lambda1.zip and lambda2.zip to the root of your S3 bucket (don't upload asset/lambda1 for example).
 
-Step 3: Update S3Bucket values in cloudformation/main.yaml
+Step 4: Update S3Bucket values in cloudformation/main.yaml
 - Inside main.yaml, look for the resources "WeatherLambda" & "CryptoLambda". Underneath each, there is a property called "S3Bucket". Update the value of the S3Bucket property for both lambdas to the name of the S3 bucket you created.
 
-Step 4: Deploy stack
+Step 5: Deploy stack
 - Use the following command to deploy the stack via cloudFormation using the following command.
   - Command: aws cloudformation deploy --template-file cloudformation/main.yaml --stack-name scansource-assessment --capabilities CAPABILITY_NAMED_IAM
   - The output will give you the APIURL and UserPoolClientId you'll need to test the endpoints
     - Example ApiURL: https://hw2969wxpg.execute-api.us-east-1.amazonaws.com/prod
 
 
-Step 5: Create a Cognito User
+Step 6: Create a Cognito User
 - Create a Cognito User for you to log into the Cognito app.
   - Command: "aws cognito-idp sign-up --client-id <Cognito_UserPool_ClientId> --username testuser2@example.com --password Test123! --user-attributes Name=email,Value=testuser2@example.com"
 
-Step 6: Authentical using AWS CLI
+Step 7: Authentical using AWS CLI
 - Use the following command to authenticate the user. Save the IdToken so you can call the secured endpoints.
   - Command: “aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id <Cognito_UserPool_ClientId> --auth-parameters USERNAME=testuser2@example.com,PASSWORD=Test123!”
 - You can save the idToken with the following commands in powershell: 
@@ -56,7 +56,7 @@ Step 6: Authentical using AWS CLI
   - Save IdToken:
 --$token = $response.AuthenticationResult.IdToken
 
-Step 7: Use the returned IdToken to call secured endpoints
+Step 8: Use the returned IdToken to call secured endpoints
 - You can test the endpoints with the following commands in powershell.
   - Weather endpoint: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "<apiurl>/weather?city=<city_name>"
 ---Example: Invoke-RestMethod -Headers @{Authorization="Bearer $token"} -Uri "https://hw2969wxpg.execute-api.us-east-1.amazonaws.com/prod/weather?city=Atlanta"
