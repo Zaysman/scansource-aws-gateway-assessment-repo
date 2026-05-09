@@ -24,6 +24,12 @@ The CloudFormation template creates all required AWS infrastructure resources ex
 Step 1: Create S3 Bucket
 - Create an S3 bucket.
 
+
+Step 2: Obtain Open Weather API Key
+- Sign up for Openweathermap.org to generate your own api key. Go inside the lambdas/lambda1 directory and create a .env file and configure it with the following value:
+
+  - OPENWEATHER_API_KEY=YOUR_API_KEY_HERE
+
 Step 2: Upload zip files
 - Upload lambda1.zip and lambda2.zip to the S3 bucket that you created. Both files needed are located in the assets/ directory. Be sure to upload lambda1.zip and lambda2.zip to the root of your S3 bucket (don't upload asset/lambda1 for example).
 
