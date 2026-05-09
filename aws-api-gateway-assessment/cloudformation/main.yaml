@@ -3,8 +3,6 @@ Description: Basic Lambda setup
 
 Resources:
 
-  
-
   #Add Cognito Userpool
   CognitoUserPool:
     Type: AWS::Cognito::UserPool
@@ -153,7 +151,7 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
 
-  ApiDeploymentV3:
+  ApiDeploymentV4:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
       - WeatherMethod
@@ -174,4 +172,3 @@ Outputs:
 
   UserPoolClientId:
     Value: !Ref CognitoUserPoolClient
-
