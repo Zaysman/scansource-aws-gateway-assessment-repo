@@ -66,10 +66,10 @@ Step 7: Use the returned IdToken to call secured endpoints
       - bitcoin     81023
 
 # External Endpoints
--WeatherLambda:
-Lambda1 uses TypeScript to call the openweathermap api to retrieve the temperature in both kelvin and fahrenheit as well as the description of the weather of the city name passed in your api call.
+WeatherLambda:
+- Lambda1 uses TypeScript to call the openweathermap api to retrieve the temperature in both kelvin and fahrenheit as well as the description of the weather of the city name passed in your api call.
 
-This lambda will require the use of an API key for accessing the data. You can get an API key signing up for the service and add it to the .env file.
+- This lambda will require the use of an API key for accessing the data. You can get an API key signing up for the service and add it to the .env file.
 
--CryptoLambda:
-This lambda will return the name of a crypto coin as well as the price of one coin in USD. 
+CryptoLambda:
+- This lambda will return the name of a crypto coin as well as the price of one coin in USD. 
