@@ -5,7 +5,6 @@ This repository contains my submission for the ScanSource Jr. API Developer tech
 This project includes a CloudFormation template (`main.yaml`) used to deploy the required AWS infrastructure for the application. Included is configuration for a Cognito Userpool, Cognito App Client, the lambdas for application, and the API Gateway for the project.
 
 # Architecture
-
 The application consists of:
 
 - AWS API Gateway with two secured endpoints
@@ -16,6 +15,14 @@ The application consists of:
   - CoinGecko API
 - IAM Roles and permissions managed through CloudFormation
 
+# Technologies and Dependencies
+WeatherLambda (TypeScript)
+- Node.js 18.x
+- axios
+
+CryptoLambda (Python)
+- Python 3.11
+- requests
 
 # Deployment Guide
 Note:
@@ -24,11 +31,17 @@ The CloudFormation template creates all required AWS infrastructure resources ex
 Step 1: Create S3 Bucket
 - Create an S3 bucket.
 
-
 Step 2: Obtain Open Weather API Key
 - Sign up for Openweathermap.org to generate your own api key. Go inside the lambdas/lambda1 directory and create a .env file and configure it with the following value:
 
   - OPENWEATHER_API_KEY=YOUR_API_KEY_HERE
+
+- With your api added to the .env file, run the following commands in the lambda1 directory to set up the file correctly.
+  - npm install (install dependencies)
+  - npx tsc (compile TypeScript project)
+
+- From the lambda1 directory, create a deployment zip:
+  - Compress-Archive -Path * -DestinationPath ../../assets/lambda1.zip
 
 Step 3: Upload zip files
 - Upload lambda1.zip and lambda2.zip to the S3 bucket that you created. Both files needed are located in the assets/ directory. Be sure to upload lambda1.zip and lambda2.zip to the root of your S3 bucket (don't upload asset/lambda1 for example).

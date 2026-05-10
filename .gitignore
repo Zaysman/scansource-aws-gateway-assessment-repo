@@ -18,6 +18,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
 # Python dependencies installed for Lambda packaging
 aws-api-gateway-assessment/lambdas/lambda2/requests/
 aws-api-gateway-assessment/lambdas/lambda2/requests-2.33.1.dist-info
